@@ -1,8 +1,6 @@
-import fastify from 'fastify';
+import { app } from './app';
 
 const APP_PORT = 4000;
-
-const app = fastify();
 
 app
 	.listen({
