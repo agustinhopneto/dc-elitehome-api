@@ -32,6 +32,7 @@ export class CreatePropertyUseCase {
 			size,
 		});
 
+		// TODO salvar as properties no banco de dados
 		properties.push(property);
 
 		return { property };
