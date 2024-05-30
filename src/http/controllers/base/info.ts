@@ -1,9 +1,10 @@
+import { AppInfoUseCase } from '@/use-cases/app-info';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 
-import packageJson from '../../../../package.json';
-
 export function info(_: FastifyRequest, reply: FastifyReply) {
-	const { name, version } = packageJson;
+	const useCase = new AppInfoUseCase();
 
-	return reply.status(200).send({ name, version });
+	const response = useCase.execute();
+
+	return reply.status(200).send(response);
 }
