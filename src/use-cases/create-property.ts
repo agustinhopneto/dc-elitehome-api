@@ -1,4 +1,5 @@
 import { Property } from '@/entities/property';
+import { properties } from '@/http/controllers/properties/route';
 
 export type CreatePropertyUseCaseRequest = {
 	name: string;
@@ -30,6 +31,8 @@ export class CreatePropertyUseCase {
 			state,
 			size,
 		});
+
+		properties.push(property);
 
 		return { property };
 	}
