@@ -1,6 +1,6 @@
 import { Property } from '@/entities/property';
 
-type CreatePropertyUseCaseRequest = {
+export type CreatePropertyUseCaseRequest = {
 	name: string;
 	totalValue: number;
 	numberOfRooms: number;
