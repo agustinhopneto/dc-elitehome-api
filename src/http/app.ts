@@ -1,6 +1,6 @@
 import fastify from 'fastify';
 
-import { baseRoutes } from './controller/base/route';
+import { baseRoutes } from './controllers/base/route';
 
 export const app = fastify();
 

@@ -1,7 +1,7 @@
 import type { FastifyInstance } from 'fastify';
 
+import { info } from './info';
+
 export async function baseRoutes(app: FastifyInstance) {
-	app.get('/', (request, reply) => {
-		return reply.status(200).send({ message: 'App is runnning!' });
-	});
+	app.get('/', info);
 }
