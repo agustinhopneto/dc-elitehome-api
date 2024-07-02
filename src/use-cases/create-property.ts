@@ -1,6 +1,6 @@
 import { knex } from '@/database';
+import { PropertySchema } from '@/database/schemas/property';
 import { Property } from '@/entities/property';
-import { properties } from '@/http/controllers/properties/route';
 
 export type CreatePropertyUseCaseRequest = {
 	name: string;
@@ -33,7 +33,7 @@ export class CreatePropertyUseCase {
 			size,
 		});
 
-		const [createdProperty] = await knex('properties')
+		const [createdProperty] = await knex<PropertySchema>('properties')
 			.insert({
 				name: property.name,
 				size: property.size,
@@ -44,6 +44,8 @@ export class CreatePropertyUseCase {
 			})
 			.returning('*');
 
-		return { property: createdProperty };
+		const propertyEntity = new PropertySchema(createdProperty).toEntity();
+
+		return { property: propertyEntity };
 	}
 }
