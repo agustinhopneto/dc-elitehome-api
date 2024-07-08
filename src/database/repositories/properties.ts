@@ -19,4 +19,14 @@ export class PropertiesRepository {
 
 		return propertyEntity;
 	}
+
+	async find(): Promise<Property[]> {
+		const properties = await knex<PropertySchema>('properties');
+
+		const propertiesEntities = properties.map((property) =>
+			new PropertySchema(property).toEntity(),
+		);
+
+		return propertiesEntities;
+	}
 }
