@@ -1,5 +1,4 @@
-import { knex } from '@/database';
-import { PropertySchema } from '@/database/schemas/property';
+import type { PropertiesRepository } from '@/database/repositories/properties';
 import { Property } from '@/entities/property';
 
 export type CreatePropertyUseCaseRequest = {
@@ -16,6 +15,8 @@ type CreatePropertyUseCaseResponse = {
 };
 
 export class CreatePropertyUseCase {
+	constructor(private repository: PropertiesRepository) {}
+
 	async execute({
 		name,
 		totalValue,
@@ -33,19 +34,8 @@ export class CreatePropertyUseCase {
 			size,
 		});
 
-		const [createdProperty] = await knex<PropertySchema>('properties')
-			.insert({
-				name: property.name,
-				size: property.size,
-				city: property.city,
-				state: property.state,
-				total_value: property.totalValue,
-				number_of_rooms: property.numberOfRooms,
-			})
-			.returning('*');
+		const createdProperty = await this.repository.create(property);
 
-		const propertyEntity = new PropertySchema(createdProperty).toEntity();
-
-		return { property: propertyEntity };
+		return { property: createdProperty };
 	}
 }
