@@ -3,11 +3,20 @@ import { Property } from '@/entities/property';
 type PropertySchemaProps = {
 	id?: string;
 	name: string;
-	size: string;
-	city: string;
-	state: string;
+	size: number;
 	total_value: number;
+	rent_value: number;
+	condo_value: number;
+	tax_value: number;
 	number_of_rooms: number;
+	number_of_bathrooms: number;
+	garage_slots: number;
+	are_pets_allowed: boolean;
+	is_next_to_subway: boolean;
+	is_active: boolean;
+	description: string;
+	is_rent: boolean;
+	is_sale: boolean;
 	created_at?: string;
 	updated_at?: string;
 };
@@ -15,59 +24,64 @@ type PropertySchemaProps = {
 export class PropertySchema {
 	public id?: string;
 	public name: string;
-	public size: string;
-	public city: string;
-	public state: string;
+	public size: number;
 	public total_value: number;
+	public rent_value: number;
+	public condo_value: number;
+	public tax_value: number;
 	public number_of_rooms: number;
+	public number_of_bathrooms: number;
+	public garage_slots: number;
+	public are_pets_allowed: boolean;
+	public is_next_to_subway: boolean;
+	public is_active: boolean;
+	public description: string;
+	public is_rent: boolean;
+	public is_sale: boolean;
 	public created_at?: string;
 	public updated_at?: string;
 
-	constructor({
-		id,
-		name,
-		size,
-		city,
-		state,
-		total_value,
-		number_of_rooms,
-		created_at,
-		updated_at,
-	}: PropertySchemaProps) {
-		this.id = id;
-		this.name = name;
-		this.size = size;
-		this.city = city;
-		this.state = state;
-		this.total_value = total_value;
-		this.number_of_rooms = number_of_rooms;
-		this.created_at = created_at;
-		this.updated_at = updated_at;
+	constructor(props: PropertySchemaProps) {
+		this.id = props.id;
+		this.name = props.name;
+		this.size = props.size;
+		this.total_value = props.total_value;
+		this.number_of_rooms = props.number_of_rooms;
+		this.created_at = props.created_at;
+		this.updated_at = props.updated_at;
+		this.rent_value = props.rent_value;
+		this.condo_value = props.condo_value;
+		this.tax_value = props.tax_value;
+		this.number_of_bathrooms = props.number_of_bathrooms;
+		this.garage_slots = props.garage_slots;
+		this.are_pets_allowed = props.are_pets_allowed;
+		this.is_next_to_subway = props.is_next_to_subway;
+		this.is_active = props.is_active;
+		this.description = props.description;
+		this.is_rent = props.is_rent;
+		this.is_sale = props.is_sale;
 	}
 
 	public toEntity() {
-		const {
-			id,
-			name,
-			size,
-			city,
-			state,
-			total_value,
-			number_of_rooms,
-			created_at,
-			updated_at,
-		} = this;
-
 		return new Property({
-			id,
-			name,
-			size,
-			city,
-			state,
-			totalValue: total_value,
-			numberOfRooms: number_of_rooms,
-			createdAt: created_at ? new Date(created_at) : undefined,
-			updatedAt: updated_at ? new Date(updated_at) : undefined,
+			id: this.id,
+			name: this.name,
+			size: this.size,
+			totalValue: this.total_value,
+			numberOfRooms: this.number_of_rooms,
+			arePetsAllowed: this.are_pets_allowed,
+			condoValue: this.condo_value,
+			description: this.description,
+			garageSlots: this.garage_slots,
+			isActive: this.is_active,
+			isNextToSubway: this.is_next_to_subway,
+			isRent: this.is_rent,
+			isSale: this.is_sale,
+			numberOfBathrooms: this.number_of_bathrooms,
+			rentValue: this.rent_value,
+			taxValue: this.tax_value,
+			createdAt: this.created_at ? new Date(this.created_at) : undefined,
+			updatedAt: this.updated_at ? new Date(this.updated_at) : undefined,
 		});
 	}
 }

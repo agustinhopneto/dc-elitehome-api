@@ -5,9 +5,7 @@ export type CreatePropertyUseCaseRequest = {
 	name: string;
 	totalValue: number;
 	numberOfRooms: number;
-	city: string;
-	state: string;
-	size: string;
+	size: number;
 };
 
 type CreatePropertyUseCaseResponse = {
@@ -21,16 +19,12 @@ export class CreatePropertyUseCase {
 		name,
 		totalValue,
 		numberOfRooms,
-		city,
-		state,
 		size,
 	}: CreatePropertyUseCaseRequest): Promise<CreatePropertyUseCaseResponse> {
 		const property = new Property({
 			name,
 			totalValue,
 			numberOfRooms,
-			city,
-			state,
 			size,
 		});
 
