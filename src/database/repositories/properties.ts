@@ -8,10 +8,22 @@ export class PropertiesRepository {
 			.insert({
 				name: property.name,
 				size: property.size,
-				city: property.city,
-				state: property.state,
 				total_value: property.totalValue,
 				number_of_rooms: property.numberOfRooms,
+				address: property.address,
+				are_pets_allowed: property.arePetsAllowed,
+				condo_value: property.condoValue,
+				description: property.description,
+				garage_slots: property.garageSlots,
+				is_active: property.isActive,
+				is_next_to_subway: property.isNextToSubway,
+				is_rent: property.isRent,
+				is_sale: property.isSale,
+				latitude: property.latitude,
+				longitude: property.longitude,
+				number_of_bathrooms: property.numberOfBathrooms,
+				rent_value: property.rentValue,
+				tax_value: property.taxValue,
 			})
 			.returning('*');
 
