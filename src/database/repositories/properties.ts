@@ -24,6 +24,7 @@ export class PropertiesRepository {
 				number_of_bathrooms: property.numberOfBathrooms,
 				rent_value: property.rentValue,
 				tax_value: property.taxValue,
+				is_furnished: property.isFurnished,
 			})
 			.returning('*');
 

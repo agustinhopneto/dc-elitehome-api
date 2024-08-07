@@ -24,6 +24,7 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
 		address: z.string(),
 		latitude: z.number(),
 		longitude: z.number(),
+		isFurnished: z.boolean(),
 	});
 
 	const data = schema.parse(request.body);

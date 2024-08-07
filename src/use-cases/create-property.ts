@@ -20,6 +20,7 @@ export type CreatePropertyUseCaseRequest = {
 	address: string;
 	latitude: number;
 	longitude: number;
+	isFurnished: boolean;
 };
 
 type CreatePropertyUseCaseResponse = {
