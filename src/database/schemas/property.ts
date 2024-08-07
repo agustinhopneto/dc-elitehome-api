@@ -17,6 +17,9 @@ type PropertySchemaProps = {
 	description: string;
 	is_rent: boolean;
 	is_sale: boolean;
+	address: string;
+	latitude: number;
+	longitude: number;
 	created_at?: string;
 	updated_at?: string;
 };
@@ -38,6 +41,9 @@ export class PropertySchema {
 	public description: string;
 	public is_rent: boolean;
 	public is_sale: boolean;
+	public address: string;
+	public latitude: number;
+	public longitude: number;
 	public created_at?: string;
 	public updated_at?: string;
 
@@ -60,6 +66,9 @@ export class PropertySchema {
 		this.description = props.description;
 		this.is_rent = props.is_rent;
 		this.is_sale = props.is_sale;
+		this.address = props.address;
+		this.latitude = props.latitude;
+		this.longitude = props.longitude;
 	}
 
 	public toEntity() {
@@ -80,6 +89,9 @@ export class PropertySchema {
 			numberOfBathrooms: this.number_of_bathrooms,
 			rentValue: this.rent_value,
 			taxValue: this.tax_value,
+			address: this.address,
+			latitude: this.latitude,
+			longitude: this.longitude,
 			createdAt: this.created_at ? new Date(this.created_at) : undefined,
 			updatedAt: this.updated_at ? new Date(this.updated_at) : undefined,
 		});

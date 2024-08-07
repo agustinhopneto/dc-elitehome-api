@@ -15,6 +15,9 @@ type PropertyProps = {
 	description: string;
 	isRent: boolean;
 	isSale: boolean;
+	address: string;
+	latitude: number;
+	longitude: number;
 	createdAt?: Date;
 	updatedAt?: Date;
 };
@@ -36,6 +39,9 @@ export class Property {
 	public description: string;
 	public isRent: boolean;
 	public isSale: boolean;
+	public address: string;
+	public latitude: number;
+	public longitude: number;
 	public createdAt?: Date;
 	public updatedAt?: Date;
 
@@ -58,5 +64,8 @@ export class Property {
 		this.isSale = props.isSale;
 		this.createdAt = props.createdAt;
 		this.updatedAt = props.updatedAt;
+		this.address = props.address;
+		this.latitude = props.latitude;
+		this.longitude = props.longitude;
 	}
 }
