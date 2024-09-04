@@ -58,4 +58,46 @@ export class PropertiesRepository {
 
 		return property;
 	}
+
+	async update(
+		id: string,
+		property: Omit<Property, 'id' | 'createdAt' | 'updatedAt'>,
+	): Promise<Property> {
+		const [updatedProperty] = await knex<PropertySchema>('properties')
+			.update({
+				...(property.name && { name: property.name }),
+				...(property.size && { size: property.size }),
+				...(property.totalValue && { total_value: property.totalValue }),
+				...(property.numberOfRooms && {
+					number_of_rooms: property.numberOfRooms,
+				}),
+				...(property.address && { address: property.address }),
+				...(property.arePetsAllowed && {
+					are_pets_allowed: property.arePetsAllowed,
+				}),
+				...(property.condoValue && { condo_value: property.condoValue }),
+				...(property.description && { description: property.description }),
+				...(property.garageSlots && { garage_slots: property.garageSlots }),
+				...(property.isActive && { is_active: property.isActive }),
+				...(property.isNextToSubway && {
+					is_next_to_subway: property.isNextToSubway,
+				}),
+				...(property.isRent && { is_rent: property.isRent }),
+				...(property.isSale && { is_sale: property.isSale }),
+				...(property.latitude && { latitude: property.latitude }),
+				...(property.longitude && { longitude: property.longitude }),
+				...(property.numberOfBathrooms && {
+					number_of_bathrooms: property.numberOfBathrooms,
+				}),
+				...(property.rentValue && { rent_value: property.rentValue }),
+				...(property.taxValue && { tax_value: property.taxValue }),
+				...(property.isFurnished && { is_furnished: property.isFurnished }),
+			})
+			.where({ id })
+			.returning('*');
+
+		const propertyEntity = new PropertySchema(updatedProperty).toEntity();
+
+		return propertyEntity;
+	}
 }
