@@ -42,4 +42,20 @@ export class PropertiesRepository {
 
 		return propertiesEntities;
 	}
+
+	async findById(id: string): Promise<Property | null> {
+		const properties = await knex<PropertySchema>('properties').where({ id });
+
+		const propertiesEntities = properties.map((property) =>
+			new PropertySchema(property).toEntity(),
+		);
+
+		const property = propertiesEntities.at(0);
+
+		if (!property) {
+			return null;
+		}
+
+		return property;
+	}
 }
