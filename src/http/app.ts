@@ -1,6 +1,7 @@
 import fastify from 'fastify';
 import { ZodError } from 'zod';
 
+import { AppError } from '@/errors/app-error';
 import { baseRoutes } from './controllers/base/route';
 import { propertiesRoutes } from './controllers/properties/route';
 
@@ -13,7 +14,11 @@ app.setErrorHandler((error, _, reply) => {
 	if (error instanceof ZodError) {
 		return reply
 			.status(400)
-			.send({ message: 'Validation eror.', issues: error.format() });
+			.send({ message: 'Validation error.', issues: error.format() });
+	}
+
+	if (error instanceof AppError) {
+		return reply.status(error.statusCode).send({ message: error.message });
 	}
 
 	console.error(error);

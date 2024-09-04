@@ -1,5 +1,6 @@
 import type { PropertiesRepository } from '@/database/repositories/properties';
 import type { Property } from '@/entities/property';
+import { NotFoundError } from '@/errors/not-found-error';
 
 type FindPropertyUseCaseResponse = Property;
 
@@ -10,7 +11,7 @@ export class FindPropertyUseCase {
 		const property = await this.repository.findById(id);
 
 		if (!property) {
-			throw new Error('Property not found.');
+			throw new NotFoundError('Property not found 2.');
 		}
 
 		return property;
