@@ -1,12 +1,11 @@
+import { envs } from '@/config/envs';
 import { app } from './app';
-
-const APP_PORT = 4000;
 
 app
 	.listen({
 		host: '0.0.0.0',
-		port: 4000,
+		port: envs.APP_PORT,
 	})
 	.then(() => {
-		console.log(`🚀 HTTP Server is running at ${APP_PORT}!`);
+		console.log(`🚀 HTTP Server is running at ${envs.APP_PORT}!`);
 	});
