@@ -1,6 +1,6 @@
 import path from 'node:path';
-import { envs } from '@/config/envs';
 import type { Knex } from 'knex';
+import { envs } from './src/config/envs';
 
 const config: Knex.Config = {
 	client: 'postgresql',
