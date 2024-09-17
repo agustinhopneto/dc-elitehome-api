@@ -4,6 +4,7 @@ import type { Property } from '@/entities/property';
 import { create } from './create';
 import { find } from './find';
 import { search } from './search';
+import { update } from './update';
 
 export const properties: Property[] = [];
 
@@ -11,4 +12,5 @@ export async function propertiesRoutes(app: FastifyInstance) {
 	app.get('/manager/properties', search);
 	app.get('/manager/properties/:id', find);
 	app.post('/manager/properties', create);
+	app.patch('/manager/properties/:id', update);
 }

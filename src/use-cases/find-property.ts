@@ -11,7 +11,7 @@ export class FindPropertyUseCase {
 		const property = await this.repository.findById(id);
 
 		if (!property) {
-			throw new NotFoundError('Property not found 2.');
+			throw new NotFoundError('Property not found.');
 		}
 
 		return property;

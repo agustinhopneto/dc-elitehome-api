@@ -61,7 +61,7 @@ export class PropertiesRepository {
 
 	async update(
 		id: string,
-		property: Omit<Property, 'id' | 'createdAt' | 'updatedAt'>,
+		property: Partial<Omit<Property, 'id' | 'createdAt' | 'updatedAt'>>,
 	): Promise<Property> {
 		const [updatedProperty] = await knex<PropertySchema>('properties')
 			.update({
