@@ -70,5 +70,7 @@ export class Property {
 		this.latitude = props.latitude;
 		this.longitude = props.longitude;
 		this.isFurnished = props.isFurnished;
+		this.createdAt = props.createdAt;
+		this.updatedAt = props.updatedAt;
 	}
 }
