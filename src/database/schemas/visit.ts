@@ -1,11 +1,12 @@
 import { Visit } from '@/entities/visit';
+import type { VisitStatus } from '@/enums/visit-status';
 
 type VisitSchemaProps = {
 	id?: string;
 	name: string;
 	phone: string;
 	email: string;
-	status: string;
+	status: VisitStatus;
 	date: string;
 	created_at?: string;
 	updated_at?: string;
@@ -17,7 +18,7 @@ export class VisitSchema {
 	public name: string;
 	public phone: string;
 	public email: string;
-	public status: string;
+	public status: VisitStatus;
 	public date: string;
 	public created_at?: string;
 	public updated_at?: string;

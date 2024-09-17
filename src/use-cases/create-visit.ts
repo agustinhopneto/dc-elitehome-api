@@ -1,12 +1,13 @@
 import type { VisitsRepository } from '@/database/repositories/visits';
 import { Visit } from '@/entities/visit';
+import type { VisitStatus } from '@/enums/visit-status';
 
 export type CreateVisitUseCaseRequest = {
 	name: string;
 	phone: string;
 	email: string;
 	date: Date;
-	status: string;
+	status: VisitStatus;
 	propertyId: string;
 };
 

@@ -1,10 +1,12 @@
+import type { VisitStatus } from '@/enums/visit-status';
+
 type VisitProps = {
 	id?: string;
 	name: string;
 	phone: string;
 	email: string;
 	date: Date;
-	status: string;
+	status: VisitStatus;
 	createdAt?: Date;
 	updatedAt?: Date;
 	propertyId: string;
@@ -16,7 +18,7 @@ export class Visit {
 	public phone: string;
 	public email: string;
 	public date: Date;
-	public status: string;
+	public status: VisitStatus;
 	public createdAt?: Date;
 	public updatedAt?: Date;
 	public propertyId: string;
