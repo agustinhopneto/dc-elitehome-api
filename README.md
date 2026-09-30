@@ -1,8 +1,8 @@
 <div align="center">
 
-# 🏡 Elite Home — API
+# 🏡 Elite Home: API
 
-**API para gestão de imóveis e agendamento de visitas: cadastro completo de imóveis para venda e aluguel, com controle de status das visitas.**
+**A property management and visit scheduling API: complete listings for sale and rent, with visit status tracking.**
 
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
@@ -12,119 +12,119 @@
 ![Zod](https://img.shields.io/badge/Zod-3E67B1?style=for-the-badge&logo=zod&logoColor=white)
 ![Biome](https://img.shields.io/badge/Biome-60A5FA?style=for-the-badge&logo=biome&logoColor=white)
 
-[Sobre](#-sobre) •
-[Arquitetura](#-arquitetura) •
-[Como rodar](#-como-rodar) •
+[About](#-about) •
+[Architecture](#-architecture) •
+[Getting started](#-getting-started) •
 [Endpoints](#-endpoints) •
-[Modelo de dados](#-modelo-de-dados) •
-[Tecnologias](#-tecnologias)
+[Data model](#-data-model) •
+[Tech stack](#-tech-stack)
 
 </div>
 
 ---
 
-## 📖 Sobre
+## 📖 About
 
-A **Elite Home API** é o backend de uma plataforma imobiliária. Ela permite ao gestor:
+**Elite Home API** is the backend of a real estate platform. It lets a manager:
 
-- 🏠 **cadastrar imóveis** com todos os detalhes: metragem, valores (venda, aluguel, condomínio, IPTU), cômodos, vagas, localização geográfica e características;
-- ✏️ **atualizar** qualquer informação de um imóvel;
-- 🔎 **listar e consultar** imóveis;
-- 📆 **registrar visitas** de interessados, acompanhando o status de cada uma.
+- 🏠 **register properties** with every detail: size, prices (sale, rent, condo fee, property tax), rooms, parking spaces, geographic location and features;
+- ✏️ **update** any property information;
+- 🔎 **list and look up** properties;
+- 📆 **record visits** from interested people and track each visit’s status.
 
-O projeto segue uma arquitetura em camadas inspirada em **Clean Architecture**, separando rotas HTTP, casos de uso, entidades e repositórios.
+The project follows a layered architecture inspired by **Clean Architecture**, separating HTTP routes, use cases, entities and repositories.
 
-## ✨ Funcionalidades
+## ✨ Features
 
-| | Recurso | Descrição |
+| | Feature | Description |
 |---|---|---|
-| 🏠 | **Cadastro de imóveis** | Mais de 18 atributos: valores, cômodos, pets, metrô, mobília... |
-| 🏷️ | **Venda e/ou aluguel** | Um mesmo imóvel pode estar disponível para os dois |
-| 📍 | **Geolocalização** | Endereço + latitude/longitude |
-| 📆 | **Agendamento de visitas** | Nome, e-mail, telefone, data e status |
-| 🔁 | **Status de visita** | `INTEREST` → `CONFIRMED` → `REALIZED` ou `CANCELED` |
-| 🛡️ | **Validação** | Payloads validados com Zod e erros padronizados |
-| 🗃️ | **Migrations** | Versionamento do banco com Knex |
+| 🏠 | **Property listings** | 18+ attributes: prices, rooms, pets, subway, furniture... |
+| 🏷️ | **Sale and/or rent** | The same property can be available for both |
+| 📍 | **Geolocation** | Address + latitude/longitude |
+| 📆 | **Visit scheduling** | Name, e-mail, phone, date and status |
+| 🔁 | **Visit status** | `INTEREST` → `CONFIRMED` → `REALIZED` or `CANCELED` |
+| 🛡️ | **Validation** | Payloads validated with Zod and standardized errors |
+| 🗃️ | **Migrations** | Database versioning with Knex |
 
-## 🧱 Arquitetura
+## 🧱 Architecture
 
 ```mermaid
 flowchart LR
-    C[Cliente] -->|HTTP| R[Rotas Fastify]
-    R --> CT[Controllers<br/><sub>validação com Zod</sub>]
-    CT --> UC[Use Cases<br/><sub>regras de negócio</sub>]
-    UC --> E[Entidades]
-    UC --> RP[Repositórios]
+    C[Client] -->|HTTP| R[Fastify routes]
+    R --> CT[Controllers<br/><sub>Zod validation</sub>]
+    CT --> UC[Use cases<br/><sub>business rules</sub>]
+    UC --> E[Entities]
+    UC --> RP[Repositories]
     RP -->|Knex| DB[(PostgreSQL)]
 ```
 
 ```
 src/
-├── config/          # Leitura e validação das variáveis de ambiente
+├── config/          # Environment variable loading and validation
 ├── database/
-│   ├── migrations/  # Migrations do Knex
-│   ├── repositories/# Acesso a dados (properties, visits)
-│   └── schemas/     # Mapeamento entidade ⇄ tabela
+│   ├── migrations/  # Knex migrations
+│   ├── repositories/# Data access (properties, visits)
+│   └── schemas/     # Entity ⇄ table mapping
 ├── entities/        # Property, Visit
 ├── enums/           # VisitStatus
 ├── errors/          # AppError, NotFoundError
 ├── http/
-│   ├── controllers/ # base (info) e properties
-│   ├── app.ts       # Instância do Fastify + error handler
+│   ├── controllers/ # base (info) and properties
+│   ├── app.ts       # Fastify instance + error handler
 │   └── server.ts    # Bootstrap
 └── use-cases/       # create/update/find/search property, create visit, app info
 ```
 
-## 🚀 Como rodar
+## 🚀 Getting started
 
-### Pré-requisitos
+### Prerequisites
 
 - [Node.js](https://nodejs.org/) 18+
-- [PostgreSQL](https://www.postgresql.org/) (local ou via Docker)
+- [PostgreSQL](https://www.postgresql.org/) (local or via Docker)
 
-### Passo a passo
+### Step by step
 
 ```bash
-# 1. Clone o repositório
+# 1. Clone the repository
 git clone https://github.com/agustinhopneto/dc-elitehome-api.git
 cd dc-elitehome-api
 
-# 2. Instale as dependências
+# 2. Install the dependencies
 npm install
 
-# 3. Configure as variáveis de ambiente
+# 3. Set up the environment variables
 cp .env.example .env
-# edite o .env com os dados de conexão do seu PostgreSQL
+# edit .env with your PostgreSQL connection details
 
-# 4. Rode as migrations
+# 4. Run the migrations
 npx knex migrate:latest
 
-# 5. Suba o servidor em modo desenvolvimento
+# 5. Start the server in development mode
 npm run dev
 ```
 
-> 💡 **Dica:** para subir um PostgreSQL rapidamente com Docker:
+> 💡 **Tip:** spin up PostgreSQL quickly with Docker:
 > ```bash
 > docker run -d --name elitehome-db -e POSTGRES_PASSWORD=docker -p 5432:5432 postgres
 > ```
 
 ## 📡 Endpoints
 
-| Método | Rota | Descrição |
+| Method | Route | Description |
 |---|---|---|
-| `GET` | `/` | Informações da aplicação |
-| `GET` | `/manager/properties` | Lista todos os imóveis |
-| `GET` | `/manager/properties/:id` | Detalhes de um imóvel |
-| `POST` | `/manager/properties` | Cadastra um imóvel |
-| `PATCH` | `/manager/properties/:id` | Atualiza parcialmente um imóvel |
-| `POST` | `/manager/properties/:id/visit` | Registra uma visita para o imóvel |
+| `GET` | `/` | Application info |
+| `GET` | `/manager/properties` | Lists all properties |
+| `GET` | `/manager/properties/:id` | Property details |
+| `POST` | `/manager/properties` | Creates a property |
+| `PATCH` | `/manager/properties/:id` | Partially updates a property |
+| `POST` | `/manager/properties/:id/visit` | Records a visit to the property |
 
 <details>
-<summary><b>🏠 POST /manager/properties: exemplo de body</b></summary>
+<summary><b>🏠 POST /manager/properties: body example</b></summary>
 
 ```json
 {
-  "name": "Apartamento 2 quartos na Vila Mariana",
+  "name": "2-bedroom apartment in Vila Mariana",
   "size": 68,
   "totalValue": 750000,
   "rentValue": 3800,
@@ -139,30 +139,30 @@ npm run dev
   "isActive": true,
   "isRent": true,
   "isSale": true,
-  "description": "Apartamento reformado, andar alto, varanda gourmet.",
+  "description": "Renovated apartment on a high floor with a gourmet balcony.",
   "address": "Rua Domingos de Morais, 1000 - São Paulo/SP",
   "latitude": -23.5891,
   "longitude": -46.6347
 }
 ```
 
-| Campo | Tipo | Regra |
+| Field | Type | Rule |
 |---|---|---|
-| `name` | string | 1 a 255 caracteres |
-| `size` | number | Metragem |
-| `totalValue`, `rentValue`, `condoValue`, `taxValue` | integer | Valores monetários |
+| `name` | string | 1 to 255 characters |
+| `size` | number | Size in m² |
+| `totalValue`, `rentValue`, `condoValue`, `taxValue` | integer | Monetary values |
 | `numberOfRooms`, `numberOfBathrooms`, `garageSlots` | integer | |
 | `arePetsAllowed`, `isNextToSubway`, `isFurnished`, `isActive`, `isRent`, `isSale` | boolean | |
-| `description` | string | Até 1000 caracteres |
+| `description` | string | Up to 1000 characters |
 | `address` | string | |
 | `latitude`, `longitude` | number | |
 
-No `PATCH`, todos os campos são **opcionais**.
+In the `PATCH` route every field is **optional**.
 
 </details>
 
 <details>
-<summary><b>📆 POST /manager/properties/:id/visit: exemplo de body</b></summary>
+<summary><b>📆 POST /manager/properties/:id/visit: body example</b></summary>
 
 ```json
 {
@@ -174,41 +174,41 @@ No `PATCH`, todos os campos são **opcionais**.
 }
 ```
 
-| Campo | Tipo | Regra |
+| Field | Type | Rule |
 |---|---|---|
-| `name` | string | 1 a 255 caracteres |
-| `email` | string | E-mail válido |
-| `phone` | string | Exatamente 14 caracteres |
-| `date` | date | Data/hora da visita |
-| `status` | enum | `INTEREST`, `CONFIRMED`, `REALIZED` ou `CANCELED` |
+| `name` | string | 1 to 255 characters |
+| `email` | string | Valid e-mail |
+| `phone` | string | Exactly 14 characters |
+| `date` | date | Visit date/time |
+| `status` | enum | `INTEREST`, `CONFIRMED`, `REALIZED` or `CANCELED` |
 
 </details>
 
-### Status de visita
+### Visit status
 
 ```mermaid
 stateDiagram-v2
     direction LR
-    [*] --> INTEREST: Interesse
-    INTEREST --> CONFIRMED: Confirmado
-    CONFIRMED --> REALIZED: Realizado
-    INTEREST --> CANCELED: Cancelado
+    [*] --> INTEREST: Interest
+    INTEREST --> CONFIRMED: Confirmed
+    CONFIRMED --> REALIZED: Done
+    INTEREST --> CANCELED: Canceled
     CONFIRMED --> CANCELED
 ```
 
-### Respostas de erro
+### Error responses
 
-| Código | Quando | Corpo |
+| Code | When | Body |
 |---|---|---|
-| `400` | Falha de validação (Zod) | `{ "message": "Validation error.", "issues": { ... } }` |
-| `404` | Imóvel não encontrado | `{ "message": "..." }` |
-| `500` | Erro inesperado | `{ "message": "Internal server error." }` |
+| `400` | Validation failure (Zod) | `{ "message": "Validation error.", "issues": { ... } }` |
+| `404` | Property not found | `{ "message": "..." }` |
+| `500` | Unexpected error | `{ "message": "Internal server error." }` |
 
-## 🗃️ Modelo de dados
+## 🗃️ Data model
 
 ```mermaid
 erDiagram
-    PROPERTIES ||--o{ VISITS : recebe
+    PROPERTIES ||--o{ VISITS : receives
     PROPERTIES {
         uuid id PK
         string name
@@ -246,19 +246,19 @@ erDiagram
     }
 ```
 
-## 🛠️ Tecnologias
+## 🛠️ Tech stack
 
-- **[Fastify](https://fastify.dev/)**: framework HTTP rápido e leve
-- **[Knex.js](https://knexjs.org/)** + **[pg](https://node-postgres.com/)**: query builder e migrations para PostgreSQL
-- **[Zod](https://zod.dev/)**: validação de payloads
-- **[env-var](https://github.com/evanshortiss/env-var)** + **[dotenv](https://github.com/motdotla/dotenv)**: variáveis de ambiente tipadas
-- **[tsx](https://github.com/privatenumber/tsx)**: execução de TypeScript com hot reload
-- **[Biome](https://biomejs.dev/)**: lint e formatação
+- **[Fastify](https://fastify.dev/)**: fast and lightweight HTTP framework
+- **[Knex.js](https://knexjs.org/)** + **[pg](https://node-postgres.com/)**: query builder and migrations for PostgreSQL
+- **[Zod](https://zod.dev/)**: payload validation
+- **[env-var](https://github.com/evanshortiss/env-var)** + **[dotenv](https://github.com/motdotla/dotenv)**: typed environment variables
+- **[tsx](https://github.com/privatenumber/tsx)**: runs TypeScript with hot reload
+- **[Biome](https://biomejs.dev/)**: linting and formatting
 
 ---
 
 <div align="center">
 
-Feito com 💙 por **[Agustinho Neto](https://github.com/agustinhopneto)**
+Made with 💙 by **[Agustinho Neto](https://github.com/agustinhopneto)**
 
 </div>
